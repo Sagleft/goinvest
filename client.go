@@ -2,9 +2,9 @@ package goinvest
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 
-	"github.com/foolin/pagser"
+	"github.com/PuerkitoBio/goquery"
 )
 
 // NewClient - create new Client
@@ -15,26 +15,17 @@ func NewClient() *Client {
 // GetScreener data
 func (c *Client) GetScreener(task ScreenerTask) (*ScreenerResponse, error) {
 	url := c.buildScreenerRequestURL(task)
-	pageBytes, err := c.get(url)
+
+	// Load the HTML document
+	doc, err := goquery.NewDocument(url)
 	if err != nil {
 		return nil, err
 	}
 
-	// new default config
-	p := pagser.New()
-
-	// data parser model
-	var data screenerPageData
-
-	// parse html data
-	err = p.Parse(&data, string(pageBytes))
-	// check error
-	if err != nil {
-		return nil, err
-	}
-
-	// print data
-	log.Printf("Page data json: \n-------------\n%v\n-------------\n", toJSON(data))
+	doc.Find("table#resultsTable > tbody > tr").Each(func(i int, s *goquery.Selection) {
+		title := s.Find("td.symbol").Text()
+		fmt.Println(title)
+	})
 
 	return nil, nil
 }

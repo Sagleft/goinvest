@@ -8,5 +8,3 @@ type ScreenerTask struct{}
 
 // ScreenerResponse data
 type ScreenerResponse struct{}
-
-type screenerPageData struct{}
