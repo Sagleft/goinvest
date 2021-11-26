@@ -37,7 +37,7 @@ type StockData struct {
 	PriceToEarnings   float64 `json:"eq_pe_ratio"`   // P/E
 	MarketCap         float64 `json:"eq_market_cap"` // market cap
 	Dividend          float64 `json:"eq_dividend"`
-	DividendYield     float64 `json:"yield_us"`
+	DividendYield     string  `json:"yield_us"`
 	Revenue           float64 `json:"eq_revenue"`
 	PriceToSales      float64 `json:"ttmpr2rev_us"` // P/S
 	PriceToBook       float64 `json:"price2bk_us"`  // P/B
