@@ -7,7 +7,11 @@ import (
 
 func main() {
 	client := goinvest.NewClient()
-	_, err := client.GetScreener(goinvest.ScreenerTask{})
+	_, err := client.GetScreener(goinvest.ScreenerTask{
+		Country:  "USA",
+		Sector:   "all",
+		Industry: "all",
+	})
 	if err != nil {
 		log.Fatalln(err)
 	}
