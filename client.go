@@ -112,8 +112,3 @@ func (c *Client) buildRequestData(task ScreenerTask) (url.Values, error) {
 
 	return result, nil
 }
-
-func toJSON(v interface{}) string {
-	data, _ := json.MarshalIndent(v, "", "\t")
-	return string(data)
-}
