@@ -8,6 +8,20 @@ type ScreenerTask struct {
 	Country  string `json:"country"`  // example: "USA"
 	Sector   string `json:"sector"`   // example: "all"
 	Industry string `json:"industry"` // example: "all"
+
+	PriceToEarnings   *ValueBar `json:"pe_ratio"`
+	PriceToSales      *ValueBar `json:"ps_ratio"`
+	PriceToBook       *ValueBar `json:"pb_ratio"`
+	TotalDebtToEquity *ValueBar `json:"td2eq_ratio"`
+	LastRate          *ValueBar `json:"last"`
+	Dividend          *ValueBar `json:"dividend"`
+	DividendYield     *ValueBar `json:"dividend_yield"`
+}
+
+// ValueBar - value vector from min to max
+type ValueBar struct {
+	Min float64 `json:"min"`
+	Max float64 `json:"max"`
 }
 
 // ScreenerResponse data

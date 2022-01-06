@@ -91,25 +91,27 @@ func (c *Client) buildRequestData(task ScreenerTask) (url.Values, error) {
 	result.Set("country[]", countryCode)
 	result.Set("sector", c.getStockSector(task.Sector))
 	result.Set("industry", c.getStockIndustry(task.Industry))
-	result.Set("equityType", "ORD")       // ordinary shares
-	result.Set("eq_pe_ratio[min]", "1.5") // P/E min
-	result.Set("eq_pe_ratio[max]", "20")  // P/E max
+	result.Set("equityType", "ORD") // only ordinary shares
 
-	result.Set("ttmpr2rev_us[min]", "0.03") // P/S min
-	result.Set("ttmpr2rev_us[max]", "2")    // P/S max
-	result.Set("price2bk_us[min]", "0.01")  // P/B min
-	result.Set("price2bk_us[max]", "1")     // P/B max
-	result.Set("qtotd2eq_us[min]", "0")     // Total Debt / Equity min
-	result.Set("qtotd2eq_us[max]", "92")    // Total Debt / Equity max
-	result.Set("last[min]", "0")            // last price min
-	result.Set("last[max]", "100")          // last price max
-	result.Set("eq_dividend[min]", "0")     // dividend min
-	result.Set("eq_dividend[max]", "272")   // dividend max
-	result.Set("yield_us[min]", "3")        // dividend yield min
-	result.Set("yield_us[max]", "12")       // dividend yield max
-	result.Set("pn", "1")                   // ??
-	result.Set("order[col]", "yield_us")    // ??
-	result.Set("order[dir]", "a")           // ??
+	setTaskBarValue(&result, "eq_pe_ratio", task.PriceToEarnings)   // P/E
+	setTaskBarValue(&result, "ttmpr2rev_us", task.PriceToSales)     // P/S
+	setTaskBarValue(&result, "price2bk_us", task.PriceToBook)       // P/B
+	setTaskBarValue(&result, "qtotd2eq_us", task.TotalDebtToEquity) // Total Debt / Equity
+	setTaskBarValue(&result, "last", task.LastRate)                 // last price
+	setTaskBarValue(&result, "eq_dividend", task.Dividend)          // dividend
+	setTaskBarValue(&result, "yield_us", task.DividendYield)        // dividend yield
+
+	result.Set("pn", "1")                // ??
+	result.Set("order[col]", "yield_us") // order by
+	result.Set("order[dir]", "a")        // order direction
 
 	return result, nil
+}
+
+func setTaskBarValue(result *url.Values, field string, value *ValueBar) {
+	if value == nil {
+		return
+	}
+	result.Set(field+"[min]", floatToString(value.Min))
+	result.Set(field+"[max]", floatToString(value.Max))
 }
