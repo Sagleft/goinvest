@@ -12,7 +12,8 @@ const (
 
 var (
 	countryCodes = map[string]string{
-		"USA": "5",
+		"USA":    "5",
+		"Russia": "56",
 	}
 	exchangeCodes = []string{
 		"2",  // NASDAQ
