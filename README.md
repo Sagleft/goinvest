@@ -1,7 +1,8 @@
 # goinvest
 
 investing.com API for stock screener written in Golang
-
 ---
 
-[![image](https://github.com/Sagleft/Sagleft/raw/master/sgl_banner_en.png)](https://t.me/+dVOFqtn-VQFjMmFi)
+## You might also be interested in:
+
+[![automate crypto trading](https://github.com/Sagleft/Sagleft/blob/master/matrixbot_github_banner_1.png?raw=true)](https://t.me/get_matrixbot?start=github_org)
